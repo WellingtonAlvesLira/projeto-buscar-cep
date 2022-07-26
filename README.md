@@ -1,4 +1,4 @@
-# projeto-busca-cep
+# projeto-buscar-cep
 
 ## Project setup
 ```
