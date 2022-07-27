@@ -1,17 +1,17 @@
 <template>
   <div>
-    <p>CEP:</p>
-    <p>UF:</p>
-    <p>CIDADE:</p>
-    <p>BAIRRO:</p>
-    <p>ENDEREÇO:</p>
-    <p>COMPLEMENTO:</p>
+    <p>CEP: {{cepResult.cep}}</p>
+    <p>UF: {{cepResult.uf}}</p>
+    <p>CIDADE: {{cepResult.localidade}} </p>
+    <p>BAIRRO: {{cepResult.bairro}} </p>
+    <p>ENDEREÇO: {{cepResult.logradouro}}</p>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'ListCep'
+    name: 'ListCep',
+      props: ['cepResult'],
 
 }
 </script>

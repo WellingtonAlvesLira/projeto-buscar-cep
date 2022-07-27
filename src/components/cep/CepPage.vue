@@ -7,14 +7,10 @@
           <form class="mb-5">
             <v-text-field
               class="mt-8"
-              v-model="cep"
-              :error-messages="nameErrors"
+              v-model="cepInput"
               :counter="8"
               label="CEP"
-              required
               placeholder="Pesquisar CEP"
-              @input="$v.cep.$touch()"
-              @blur="$v.cep.$touch()"
             ></v-text-field>
             <v-btn class="mr-4" color="primary" @click="pesquisar">
               Pesquisar
@@ -22,10 +18,9 @@
             <v-btn @click="limpar"> Limpar </v-btn>
           </form>
           <v-row>
-            <v-col v-for="(cep, i) in cepList" :key="i" cols="12" md="3">
-              <!--Enviando a variavel book, para o BookItem para da inicio as funcionalidades externas-->
-              <!-- <ListaCep class="mt-5 text-left" :cep="cep" /> -->
-             {{cep}}
+            <v-col cols="12" md="8">
+              <!-- Enviando a variavel book, para o ListaCep para da inicio as funcionalidades externas-->
+              <ListaCep class="mt-5 text-left" :cepResult="cepResult"></ListaCep>
             </v-col>
           </v-row>
         </v-col>
@@ -35,28 +30,33 @@
 </template>
 
 <script>
-// import ListaCep from "@/components/cep/ListaCep.vue";
+import ListaCep from "@/components/cep/ListaCep.vue";
 
 import api from '@/api/api.js';
 
 export default {
   name: "CepPage",
-  // components: { ListaCep },
+  components: { ListaCep },
   mixins: [api],
   data() {
     return {
-      cep: "",
-      cepList: [] 
+      cepInput: "",
+      cepResult: "",
     };
   },
   methods: {
     pesquisar(){
-      if(this.cep){
-        this.get(`/ws/${this.cep}/json/`).then((resposta) =>{
+      if(this.cepInput){
+        this.get(`/ws/${this.cepInput}/json/`).then((resposta) =>{
           
-          console.log(this.cepList = resposta.data)
+        this.cepResult = resposta.data;
+        
         })
       }
+      
+    },
+    limpar(){
+      this.cepInput = "";
     }
   }
 };
